@@ -1,21 +1,74 @@
-var test = document.createElement('div');
-document.body.appendChild(test);
-test.innerHTML= '<h1>Тест по программированию</h1>';
 
+// СОЗДАЕТСЯ УСЛОВНАЯ БАЗА ВОПРОСОВ И ВАРИАНТОВ ОТВЕТОВ (двумерный массив)
 
-for (var i = 1; i < 4; i++) {
-	var testQuestion = document.createElement('ul');
-	test.appendChild(testQuestion);
-	testQuestion.innerHTML = i + '. Вопрос по тесту № ' + i;
+var QBase = [];
 
-		for (var j = 1; j < 4; j++) {
-			var testAnswer = document.createElement('label');//создаем лейбл
-			testAnswer.innerHTML = ' <input type="checkbox"> Вариант ответа № ' + j;//добавляем текст в лейбл
-			testQuestion.appendChild(testAnswer); //добавляем лейбл в уль
+QBase.length=3;
+
+	for (var i=0; i<QBase.length; i++ ){
+		QBase[i]=[];
+		QBase[i].length=4;
+		QBase[i][0] = 'Вопрос № ' + (i+1);
+			for (var k=1; k<QBase[i].length; k++){
+				QBase[i][k] = 'Вариант ответа № ' + k;
 			}
+	}
+
+
+
+// ОБЪЕКТ С МЕТОДАМИ ДЛЯ ПОСТРОЕНИЯ ТЕСТА
+
+
+var test = {
+
+	ancestor:document.body,
+	wrapper:'',
+	header:'',
+	question:'',
+	submit:'',
+
+
+
+
+	CreateWrapper:function(){
+		this.wrapper=document.createElement('form');
+		this.wrapper.classList.add('wrapper');
+		this.ancestor.appendChild(this.wrapper);
+	},
+	
+	CreateHeader:function(){
+		this.header=document.createElement('h1');
+		this.header.classList.add('header');
+		this.header.innerHTML = 'Тест по программированию';
+		this.wrapper.appendChild(this.header);
+	},
+
+	CreateQuestionBlock:function(){
+			for (var i = 0; i<QBase.length; i++){
+				this.question=document.createElement('ul');
+				this.question.classList.add('questionBlock');
+				this.question.innerHTML = (i+1) + '. ' + QBase[i][0];
+				this.wrapper.appendChild(this.question);
+					for (k=1; k<QBase[i].length; k++){
+						this.answersVariants=document.createElement('li');
+						this.answer=document.createElement('label');
+						this.answer.innerHTML = '<input type="checkbox" name="answerVariant#' + (i + 1) + '.' + k + '">' + QBase[i][k] ;
+						this.answersVariants.appendChild(this.answer);
+						this.question.appendChild(this.answersVariants);
+					}
+				}
+	},
+
+	CreateSubmitButton:function(){
+		this.submit=document.createElement('p');
+		this.submit.innerHTML = '<input class="submitButton" type="submit" value="Проверить мои результаты">';
+		this.wrapper.appendChild(this.submit);
+	}
+
+
 }
 
-
-var button = document.createElement('button');
-button.innerHTML = 'Проверить мои результаты';
-test.appendChild(button);
+test.CreateWrapper();
+test.CreateHeader();
+test.CreateQuestionBlock();
+test.CreateSubmitButton();

@@ -1,10 +1,14 @@
-div{
+form{
 	font-size: 20px;
 	width: 800px;
 	height: 600px;
 	background-color: *#ffffff;
 	border: 1px solid lightgray;
-	
+}
+
+ul{
+	list-style-type: none;
+	margin-left: 80px;
 }
 
 label{
@@ -15,14 +19,9 @@ h1{
 	text-align: center;
 	padding-top: 20px;
 	font-size: 20px;
-
 }
 
-ul{
-	margin-left: 80px;
-}
-
-button{
+.submitButton{
 	width: 300px;
 	height: 50px;
 	text-align: center;
