@@ -7,7 +7,7 @@ QBase.length=3;
 
 	for (var i=0; i<QBase.length; i++ ){
 		QBase[i]=[];
-		QBase[i].length=4;
+		QBase[i].length=3;
 		QBase[i][0] = 'Вопрос № ' + (i+1);
 			for (var k=1; k<QBase[i].length; k++){
 				QBase[i][k] = 'Вариант ответа № ' + k;
@@ -26,8 +26,7 @@ var test = {
 	header:'',
 	question:'',
 	submit:'',
-
-
+	all:'',
 
 
 	CreateWrapper:function(){
@@ -44,31 +43,34 @@ var test = {
 	},
 
 	CreateQuestionBlock:function(){
-			for (var i = 0; i<QBase.length; i++){
-				this.question=document.createElement('ul');
-				this.question.classList.add('questionBlock');
-				this.question.innerHTML = (i+1) + '. ' + QBase[i][0];
-				this.wrapper.appendChild(this.question);
-					for (k=1; k<QBase[i].length; k++){
-						this.answersVariants=document.createElement('li');
-						this.answer=document.createElement('label');
-						this.answer.innerHTML = '<input type="checkbox" name="answerVariant#' + (i + 1) + '.' + k + '">' + QBase[i][k] ;
-						this.answersVariants.appendChild(this.answer);
-						this.question.appendChild(this.answersVariants);
-					}
+		for (var i = 0; i<QBase.length; i++){
+			this.question=document.createElement('ul');
+			this.question.classList.add('questionBlock');
+			this.question.innerHTML = (i+1) + '. ' + QBase[i][0];
+			this.wrapper.appendChild(this.question);
+				for (k=1; k<QBase[i].length; k++){
+					this.answersVariants=document.createElement('li');
+					this.answer=document.createElement('label');
+					this.answer.innerHTML = '<input type="checkbox" name="answerVariant#' + (i + 1) + '.' + k + '">' + QBase[i][k] ;
+					this.answersVariants.appendChild(this.answer);
+					this.question.appendChild(this.answersVariants);
 				}
+			}
 	},
 
 	CreateSubmitButton:function(){
 		this.submit=document.createElement('p');
 		this.submit.innerHTML = '<input class="submitButton" type="submit" value="Проверить мои результаты">';
 		this.wrapper.appendChild(this.submit);
-	}
+	},
 
+	CreateAll:function(){
+		this.CreateWrapper();
+		this.CreateHeader();
+		this.CreateQuestionBlock();
+		this.CreateSubmitButton();
+	}
 
 }
 
-test.CreateWrapper();
-test.CreateHeader();
-test.CreateQuestionBlock();
-test.CreateSubmitButton();
+test.CreateAll();
